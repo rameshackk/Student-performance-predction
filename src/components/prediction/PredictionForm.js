@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { students } from '../../services/mockData';
 import { FaMagic, FaSpinner } from 'react-icons/fa';
 

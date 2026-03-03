@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { groups, students } from '../../services/mockData';
 
 const StudentGroups = () => {

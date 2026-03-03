@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { students } from '../../services/mockData';
 import { FaSearch, FaFilter } from 'react-icons/fa';
 

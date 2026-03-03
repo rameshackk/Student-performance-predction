@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
 import Dashboard from './components/dashboard/Dashboard';
 import StudentList from './components/students/StudentList';
@@ -27,3 +27,4 @@ function App() {
 }
 
 export default App;
+

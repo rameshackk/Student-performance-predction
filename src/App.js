@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/layout/Navigation';
 import Dashboard from './components/dashboard/Dashboard';
@@ -27,4 +27,3 @@ function App() {
 }
 
 export default App;
-

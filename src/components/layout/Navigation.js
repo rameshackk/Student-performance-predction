@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaChartBar, FaUsers, FaMagic, FaLayerGroup } from 'react-icons/fa';
 
@@ -25,7 +25,8 @@ const Navigation = () => {
             <li key={item.path} className="nav-item">
               <Link
                 to={item.path}
-                className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                className={
+av-link }
               >
                 <Icon className="nav-icon" />
                 <span>{item.name}</span>
@@ -39,4 +40,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

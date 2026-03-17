@@ -29,6 +29,13 @@ const Dashboard = () => {
     });
   }, []);
 
+  const topPerformer = [...students].sort((a, b) => b.gpa - a.gpa)[0];
+  const needsAttention = [...students].sort((a, b) => a.gpa - b.gpa)[0];
+  
+  // Find a student who has a better predicted GPA than current GPA (Simulating "Most Improved")
+  const mostImprovedPred = predictions.find(p => p.predictedGPA > (students.find(s => s.id === p.studentId)?.gpa || 4.0));
+  const mostImproved = mostImprovedPred ? students.find(s => s.id === mostImprovedPred.studentId) : students[Math.floor(Math.random() * students.length)];
+
   return (
     <div className="dashboard">
       <h1>Dashboard</h1>
@@ -93,18 +100,24 @@ const Dashboard = () => {
       <div className="quick-insights">
         <h2>Quick Insights</h2>
         <div className="insights-grid">
-          <div className="insight-card">
-            <h4>Top Performer</h4>
-            <p>Alice Brown - GPA: 3.9</p>
-          </div>
-          <div className="insight-card">
-            <h4>Needs Attention</h4>
-            <p>Charlie Wilson - GPA: 2.1</p>
-          </div>
-          <div className="insight-card">
-            <h4>Most Improved</h4>
-            <p>Bob Johnson - GPA: 3.2</p>
-          </div>
+          {topPerformer && (
+             <div className="insight-card">
+               <h4>Top Performer</h4>
+               <p>{topPerformer.name} - GPA: {topPerformer.gpa}</p>
+             </div>
+          )}
+          {needsAttention && (
+             <div className="insight-card">
+               <h4>Needs Attention</h4>
+               <p>{needsAttention.name} - GPA: {needsAttention.gpa}</p>
+             </div>
+          )}
+          {mostImproved && (
+             <div className="insight-card">
+               <h4>Most Improved</h4>
+               <p>{mostImproved.name} - GPA: {mostImproved.gpa}</p>
+             </div>
+          )}
         </div>
       </div>
     </div>

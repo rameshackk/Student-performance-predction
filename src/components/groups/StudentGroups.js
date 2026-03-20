@@ -1,22 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { groups, students } from '../../services/mockData';
 
 const StudentGroups = () => {
+  const [selectedMajor, setSelectedMajor] = useState('');
+  const uniqueMajors = Object.keys(students[0].subjectScores || {}).sort();
+
+  const getGroupForGpa = (gpa) => {
+    if (gpa < 2.2) return 5;
+    if (gpa < 2.6) return 4;
+    if (gpa < 3.2) return 3;
+    if (gpa < 3.7) return 2;
+    return 1;
+  };
+
+  const getRiskForGpa = (gpa) => {
+    if (gpa < 2.2) return 'critical';
+    if (gpa < 2.6) return 'high';
+    if (gpa < 3.2) return 'medium';
+    return 'low';
+  };
+
   // Calculate group statistics
   const groupStats = groups.map(group => {
-    const groupStudents = students.filter(s => s.studentGroup === group.id);
-    const avgGPA = groupStudents.reduce((sum, s) => sum + s.gpa, 0) / groupStudents.length || 0;
+    const groupStudentsRaw = students.filter(s => {
+      const gpa = selectedMajor ? s.subjectScores[selectedMajor].gpa : s.gpa;
+      const computedGroup = selectedMajor ? getGroupForGpa(gpa) : s.studentGroup;
+      return computedGroup === group.id;
+    });
+
+    const groupStudents = groupStudentsRaw.map(s => {
+      const gpa = selectedMajor ? s.subjectScores[selectedMajor].gpa : s.gpa;
+      const risk = selectedMajor ? getRiskForGpa(gpa) : s.riskLevel;
+      return { ...s, displayGpa: gpa, displayRisk: risk };
+    });
+
+    const avgGPA = groupStudents.reduce((sum, s) => sum + s.displayGpa, 0) / groupStudents.length || 0;
     const riskDistribution = {
-      low: groupStudents.filter(s => s.riskLevel === 'low').length,
-      medium: groupStudents.filter(s => s.riskLevel === 'medium').length,
-      high: groupStudents.filter(s => s.riskLevel === 'high').length,
-      critical: groupStudents.filter(s => s.riskLevel === 'critical').length
+      low: groupStudents.filter(s => s.displayRisk === 'low').length,
+      medium: groupStudents.filter(s => s.displayRisk === 'medium').length,
+      high: groupStudents.filter(s => s.displayRisk === 'high').length,
+      critical: groupStudents.filter(s => s.displayRisk === 'critical').length
     };
     
     return {
       ...group,
       actualCount: groupStudents.length,
-      actualAvgGPA: avgGPA.toFixed(2),
+      actualAvgGPA: avgGPA.toFixed(1),
       students: groupStudents,
       riskDistribution
     };
@@ -24,8 +53,23 @@ const StudentGroups = () => {
 
   return (
     <div className="student-groups">
-      <h1>Student Groups</h1>
-      <p className="subtitle">Based on Louvain Clustering Algorithm</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div>
+          <h1>Student Groups</h1>
+          <p className="subtitle" style={{ marginTop: 0 }}>Behavioral Clustering Algorithm</p>
+        </div>
+        <select 
+          value={selectedMajor} 
+          onChange={(e) => setSelectedMajor(e.target.value)}
+          className="filter-select"
+          style={{ padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc', minWidth: '200px' }}
+        >
+          <option value="">All Subjects</option>
+          {uniqueMajors.map(major => (
+            <option key={major} value={major}>{major}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="groups-grid">
         {groupStats.map(group => (
@@ -95,7 +139,7 @@ const StudentGroups = () => {
               <ul>
                 {group.students.slice(0, 5).map(s => (
                   <li key={s.id}>
-                    {s.name} - GPA: {s.gpa} ({s.riskLevel})
+                    {s.name} - GPA: {s.displayGpa.toFixed(1)} ({s.displayRisk})
                   </li>
                 ))}
                 {group.students.length > 5 && (

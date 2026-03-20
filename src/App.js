@@ -9,6 +9,7 @@ import StudentGroups from './components/groups/StudentGroups';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import PrivateRoute from './components/auth/PrivateRoute';
+import MCQTest from './components/assignments/MCQTest';
 import { useAuth } from './context/AuthContext';
 import './App.css';
 
@@ -29,6 +30,7 @@ const AppContent = () => {
           <Route path="/add-student" element={<PrivateRoute allowedRoles={['admin']}><AddStudent /></PrivateRoute>} />
           <Route path="/predict" element={<PrivateRoute><PredictionForm /></PrivateRoute>} />
           <Route path="/groups" element={<PrivateRoute allowedRoles={['admin', 'student']}><StudentGroups /></PrivateRoute>} />
+          <Route path="/mcq-tests" element={<PrivateRoute allowedRoles={['admin', 'student']}><MCQTest /></PrivateRoute>} />
         </Routes>
       </main>
     </div>

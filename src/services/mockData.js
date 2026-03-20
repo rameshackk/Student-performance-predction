@@ -1,3 +1,5 @@
+import { getRecommendations } from './recommendations';
+
 export const courseCategories = [
   { id: 1, name: 'Mathematics', courses: ['MATH101', 'MATH201', 'MATH301'] },
   { id: 2, name: 'Computer Science', courses: ['CS101', 'CS201', 'CS301'] },
@@ -7,8 +9,8 @@ export const courseCategories = [
 ];
 
 const generateStudents = (count) => {
-  const firstNames = ['John', 'Jane', 'Bob', 'Alice', 'Charlie', 'Diana', 'Bruce', 'Clark', 'Emily', 'Michael', 'Sarah', 'David', 'Jessica', 'James', 'Emma', 'William', 'Olivia', 'Daniel', 'Sophia', 'Matthew'];
-  const lastNames = ['Doe', 'Smith', 'Johnson', 'Brown', 'Wilson', 'Prince', 'Wayne', 'Kent', 'Davis', 'Miller', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez'];
+  const firstNames = ['Karthik', 'Vignesh', 'Surya', 'Ramesh', 'Sanjay', 'Pragathishwaran', 'Raghu', 'Tharun', 'Rushil', 'Sudharshan', 'Sivadasan', 'Sivaselvam', 'Arun', 'Prakash', 'Balaji', 'Nithya', 'Priyanka', 'Divya', 'Aishwarya', 'Swathi'];
+  const lastNames = ['Rajan', 'Krishnan', 'Kumar', 'Natarajan', 'Swaminathan', 'Iyer', 'Pillai', 'Raman', 'Srinivasan', 'Venkatesan', 'Gounder', 'Naidu', 'Chettiar', 'Reddy', 'Bharathi', 'Chandran', 'Muralidharan', 'Rajagopal', 'Sekar', 'Ramasamy'];
   const majors = ['Computer Science', 'Electrical Engineering', 'Mechanical Engineering', 'Physics', 'Mathematics', 'Business', 'Journalism', 'Biology', 'Chemistry', 'Psychology'];
 
   const generatedStudents = [];
@@ -16,34 +18,60 @@ const generateStudents = (count) => {
   for (let i = 1; i <= count; i++) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    const major = majors[Math.floor(Math.random() * majors.length)];
+    
+    // Generate scores for all majors
+    const subjectScores = {};
+    let totalAttendance = 0, totalAssignments = 0, totalProjects = 0, totalMcq = 0, totalGpa = 0;
+    const baseStudentSkill = Math.random(); // Base aptitude for the student
+    
+    majors.forEach(subject => {
+      // Add slight variance per subject
+      const subjectSkill = Math.max(0, Math.min(1, baseStudentSkill + (Math.random() * 0.4 - 0.2)));
+      
+      const attendance = Math.floor(50 + (subjectSkill * 50));
+      const assignments = Math.floor(55 + ((subjectSkill + (Math.random() * 0.2 - 0.1)) * 45));
+      const projects = Math.floor(50 + ((subjectSkill + (Math.random() * 0.3 - 0.15)) * 50));
+      const mcqScore = Math.floor(50 + ((subjectSkill + (Math.random() * 0.25 - 0.1)) * 50));
+      
+      let gpa = (attendance * 0.2 + assignments * 0.3 + projects * 0.3 + mcqScore * 0.2) / 100 * 4.0;
+      gpa = Math.max(1.0, Math.min(4.0, gpa));
+      
+      subjectScores[subject] = {
+        attendance: Math.min(100, Math.max(0, attendance)),
+        assignments: Math.min(100, Math.max(0, assignments)),
+        projects: Math.min(100, Math.max(0, projects)),
+        mcqScore: Math.min(100, Math.max(0, mcqScore)),
+        gpa: parseFloat(gpa.toFixed(1))
+      };
+      
+      totalAttendance += subjectScores[subject].attendance;
+      totalAssignments += subjectScores[subject].assignments;
+      totalProjects += subjectScores[subject].projects;
+      totalMcq += subjectScores[subject].mcqScore;
+      totalGpa += subjectScores[subject].gpa;
+    });
 
-    // Generate realistic correlation between attendance, projects, assignments and GPA
-    const baseSkill = Math.random(); // 0 to 1
-
-    // Convert base skill to stats
-    const attendance = Math.floor(50 + (baseSkill * 50)); // 50 to 100
-    const assignments = Math.floor(55 + ((baseSkill + (Math.random() * 0.2 - 0.1)) * 45)); // 55 to 100 with some noise
-    const projects = Math.floor(50 + ((baseSkill + (Math.random() * 0.3 - 0.15)) * 50)); // 50 to 100 with more noise
-
-    // Calculate GPA based on components
-    let gpa = (attendance * 0.2 + assignments * 0.4 + projects * 0.4) / 100 * 4.0;
-    gpa = Math.max(1.0, Math.min(4.0, gpa)); // clamp between 1.0 and 4.0
+    const mCount = majors.length;
+    const avgAttendance = Math.round(totalAttendance / mCount);
+    const avgAssignments = Math.round(totalAssignments / mCount);
+    const avgProjects = Math.round(totalProjects / mCount);
+    const avgMcqScore = Math.round(totalMcq / mCount);
+    let avgGpa = totalGpa / mCount;
 
     // Determine risk level based on GPA
     let riskLevel = 'low';
     let studentGroup = 1;
 
-    if (gpa < 2.2) {
+    if (avgGpa < 2.2) {
       riskLevel = 'critical';
       studentGroup = 5;
-    } else if (gpa < 2.6) {
+    } else if (avgGpa < 2.6) {
       riskLevel = 'high';
       studentGroup = 4;
-    } else if (gpa < 3.2) {
+    } else if (avgGpa < 3.2) {
       riskLevel = 'medium';
       studentGroup = 3;
-    } else if (gpa < 3.7) {
+    } else if (avgGpa < 3.7) {
       riskLevel = 'low';
       studentGroup = 2;
     }
@@ -53,16 +81,19 @@ const generateStudents = (count) => {
     generatedStudents.push({
       id: i,
       name: `${firstName} ${lastName}`,
-      major,
-      gpa: parseFloat(gpa.toFixed(2)),
+      major: 'All Subjects',
+      subjectScores,
+      gpa: parseFloat(avgGpa.toFixed(1)),
       riskLevel,
       studentGroup,
       enrollmentYear,
-      email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${i}@university.edu`,
+      email: `${firstName.toLocaleLowerCase()}.${lastName.toLocaleLowerCase()}${i}@university.edu`,
       courses: courseCategories[Math.floor(Math.random() * courseCategories.length)].courses,
-      attendance: Math.min(100, Math.max(0, attendance)),
-      assignments: Math.min(100, Math.max(0, assignments)),
-      projects: Math.min(100, Math.max(0, projects))
+      attendance: avgAttendance,
+      assignments: avgAssignments,
+      projects: avgProjects,
+      mcqScore: avgMcqScore,
+      recommendationDetails: getRecommendations(parseFloat(avgGpa.toFixed(1)), 'General Sciences')
     });
   }
 
@@ -100,7 +131,7 @@ const generatePredictions = (studentsList) => {
       id: student.id,
       studentId: student.id,
       studentName: student.name,
-      predictedGPA: parseFloat(predictedGPA.toFixed(2)),
+      predictedGPA: parseFloat(predictedGPA.toFixed(1)),
       riskLevel,
       confidence: parseFloat((0.75 + Math.random() * 0.2).toFixed(2)),
       date: new Date(Date.now() - Math.floor(Math.random() * 30) * 86400000).toISOString().split('T')[0],
@@ -130,7 +161,7 @@ const calculateGroups = (studentsList) => {
     return {
       ...bg,
       studentCount: count,
-      avgGPA: parseFloat(avgGPA.toFixed(2))
+      avgGPA: parseFloat(avgGPA.toFixed(1))
     };
   });
 };

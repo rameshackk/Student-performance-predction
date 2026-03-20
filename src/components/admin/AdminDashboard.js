@@ -9,26 +9,55 @@ const AdminDashboard = () => {
     atRisk: 0,
     lowRisk: 0,
   });
+  const [selectedMajor, setSelectedMajor] = useState('');
+  const uniqueMajors = Object.keys(students[0].subjectScores || {}).sort();
+
+  const computeRisk = (gpa) => {
+    if (gpa < 2.2) return 'critical';
+    if (gpa < 2.6) return 'high';
+    if (gpa < 3.2) return 'medium';
+    return 'low';
+  };
 
   useEffect(() => {
-    // Calculate statistics from mock data
     const total = students.length;
-    const avg = students.reduce((sum, s) => sum + s.gpa, 0) / total;
-    const risk = students.filter(s => s.riskLevel === 'high' || s.riskLevel === 'critical').length;
-    const low = students.filter(s => s.riskLevel === 'low').length;
+    let sumGpa = 0;
+    const riskCounts = { high: 0, low: 0, medium: 0, critical: 0 };
+
+    students.forEach(s => {
+      const gpa = selectedMajor ? s.subjectScores[selectedMajor].gpa : s.gpa;
+      const risk = selectedMajor ? computeRisk(gpa) : s.riskLevel;
+      sumGpa += gpa;
+      if (riskCounts[risk] !== undefined) riskCounts[risk]++;
+    });
 
     setStats({
       totalStudents: total,
-      avgGPA: avg.toFixed(2),
-      atRisk: risk,
-      lowRisk: low,
+      avgGPA: (sumGpa / total).toFixed(1),
+      atRisk: riskCounts.high + riskCounts.critical,
+      lowRisk: riskCounts.low,
     });
-  }, []);
+  }, [selectedMajor]);
 
   return (
     <div className="dashboard">
-      <h1>Admin Dashboard</h1>
-      <p>Welcome, Admin! You have full access to all data.</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p>Welcome, Admin! You have full access to all data.</p>
+        </div>
+        <select 
+          value={selectedMajor} 
+          onChange={(e) => setSelectedMajor(e.target.value)}
+          className="filter-select"
+          style={{ padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc', minWidth: '200px' }}
+        >
+          <option value="">All Subjects</option>
+          {uniqueMajors.map(major => (
+            <option key={major} value={major}>{major}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="stats-grid">
         <div className="stat-card blue">

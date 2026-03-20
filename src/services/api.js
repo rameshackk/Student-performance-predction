@@ -27,7 +27,7 @@ export const predictionAPI = {
       id: `PRED${Math.random().toString(36).substr(2, 9)}`,
       studentId: student.id,
       studentName: student.name,
-      predictedGPA: (student.gpa + (Math.random() * 0.3 - 0.1)).toFixed(2),
+      predictedGPA: (student.gpa + (Math.random() * 0.3 - 0.1)).toFixed(1),
       riskScore: Math.floor(Math.random() * 60),
       riskLevel: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)],
       confidence: 0.85 + Math.random() * 0.1,

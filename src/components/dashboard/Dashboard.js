@@ -10,24 +10,37 @@ const Dashboard = () => {
     mediumRisk: 0,
     criticalRisk: 0
   });
+  const [selectedMajor, setSelectedMajor] = useState('');
+  const uniqueMajors = Object.keys(students[0].subjectScores || {}).sort();
+
+  const computeRisk = (gpa) => {
+    if (gpa < 2.2) return 'critical';
+    if (gpa < 2.6) return 'high';
+    if (gpa < 3.2) return 'medium';
+    return 'low';
+  };
 
   useEffect(() => {
     const total = students.length;
-    const avg = students.reduce((sum, s) => sum + s.gpa, 0) / total;
-    const risk = students.filter(s => s.riskLevel === 'high').length;
-    const low = students.filter(s => s.riskLevel === 'low').length;
-    const medium = students.filter(s => s.riskLevel === 'medium').length;
-    const critical = students.filter(s => s.riskLevel === 'critical').length;
+    let sumGpa = 0;
+    const riskCounts = { high: 0, low: 0, medium: 0, critical: 0 };
+
+    students.forEach(s => {
+      const gpa = selectedMajor ? s.subjectScores[selectedMajor].gpa : s.gpa;
+      const risk = selectedMajor ? computeRisk(gpa) : s.riskLevel;
+      sumGpa += gpa;
+      if (riskCounts[risk] !== undefined) riskCounts[risk]++;
+    });
 
     setStats({
       totalStudents: total,
-      avgGPA: avg.toFixed(2),
-      atRisk: risk,
-      lowRisk: low,
-      mediumRisk: medium,
-      criticalRisk: critical
+      avgGPA: (sumGpa / total).toFixed(1),
+      atRisk: riskCounts.high,
+      lowRisk: riskCounts.low,
+      mediumRisk: riskCounts.medium,
+      criticalRisk: riskCounts.critical
     });
-  }, []);
+  }, [selectedMajor]);
 
   const topPerformer = [...students].sort((a, b) => b.gpa - a.gpa)[0];
   const needsAttention = [...students].sort((a, b) => a.gpa - b.gpa)[0];
@@ -38,7 +51,20 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <h1>Dashboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Dashboard</h1>
+        <select 
+          value={selectedMajor} 
+          onChange={(e) => setSelectedMajor(e.target.value)}
+          className="filter-select"
+          style={{ padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc', minWidth: '200px' }}
+        >
+          <option value="">All Subjects</option>
+          {uniqueMajors.map(major => (
+            <option key={major} value={major}>{major}</option>
+          ))}
+        </select>
+      </div>
       
       <div className="stats-grid">
         <div className="stat-card blue">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaChartBar, FaUsers, FaUserPlus, FaMagic, FaLayerGroup, FaSignOutAlt } from 'react-icons/fa';
+import { FaChartBar, FaUsers, FaUserPlus, FaMagic, FaLayerGroup, FaSignOutAlt, FaClipboardList } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 
 const Navigation = () => {
@@ -27,6 +27,7 @@ const Navigation = () => {
     { path: '/add-student', name: 'Add Student', icon: FaUserPlus, roles: ['admin'] },
     { path: '/predict', name: 'Predict', icon: FaMagic, roles: ['admin', 'student'] },
     { path: '/groups', name: 'Groups', icon: FaLayerGroup, roles: ['admin', 'student'] },
+    { path: '/mcq-tests', name: 'MCQ Tests', icon: FaClipboardList, roles: ['admin', 'student'] },
   ];
 
   return (

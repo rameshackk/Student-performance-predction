@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Student-performance-predction/static/css/main.96537cf6.css",
-    "main.js": "/Student-performance-predction/static/js/main.bb6e3a32.js",
+    "main.js": "/Student-performance-predction/static/js/main.c8b2bb16.js",
     "index.html": "/Student-performance-predction/index.html",
     "main.96537cf6.css.map": "/Student-performance-predction/static/css/main.96537cf6.css.map",
-    "main.bb6e3a32.js.map": "/Student-performance-predction/static/js/main.bb6e3a32.js.map"
+    "main.c8b2bb16.js.map": "/Student-performance-predction/static/js/main.c8b2bb16.js.map"
   },
   "entrypoints": [
     "static/css/main.96537cf6.css",
-    "static/js/main.bb6e3a32.js"
+    "static/js/main.c8b2bb16.js"
   ]
 }

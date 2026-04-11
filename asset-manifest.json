@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/Student-performance-predction/static/css/main.96537cf6.css",
-    "main.js": "/Student-performance-predction/static/js/main.c8b2bb16.js",
+    "main.css": "/Student-performance-predction/static/css/main.363b81f6.css",
+    "main.js": "/Student-performance-predction/static/js/main.a930d9a1.js",
+    "static/media/panimalar-bg.jpg": "/Student-performance-predction/static/media/panimalar-bg.c5cb0caae3c8d28769cb.jpg",
     "index.html": "/Student-performance-predction/index.html",
-    "main.96537cf6.css.map": "/Student-performance-predction/static/css/main.96537cf6.css.map",
-    "main.c8b2bb16.js.map": "/Student-performance-predction/static/js/main.c8b2bb16.js.map"
+    "main.363b81f6.css.map": "/Student-performance-predction/static/css/main.363b81f6.css.map",
+    "main.a930d9a1.js.map": "/Student-performance-predction/static/js/main.a930d9a1.js.map"
   },
   "entrypoints": [
-    "static/css/main.96537cf6.css",
-    "static/js/main.c8b2bb16.js"
+    "static/css/main.363b81f6.css",
+    "static/js/main.a930d9a1.js"
   ]
 }

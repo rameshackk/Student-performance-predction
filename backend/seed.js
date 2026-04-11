@@ -1,6 +1,12 @@
-import { getRecommendations } from './recommendations';
+require('dotenv').config();
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const User = require('./models/User');
+const Student = require('./models/Student');
+const Prediction = require('./models/Prediction');
 
-export const courseCategories = [
+// Just statically pasting the mock generator locally to seed
+const courseCategories = [
   { id: 1, name: 'Mathematics', courses: ['MATH101', 'MATH201', 'MATH301'] },
   { id: 2, name: 'Computer Science', courses: ['CS101', 'CS201', 'CS301'] },
   { id: 3, name: 'Sciences', courses: ['PHYS101', 'CHEM101', 'BIO101'] },
@@ -40,10 +46,9 @@ const generateStudents = (namesList) => {
   namesList.forEach((fullName, idx) => {
     const i = idx + 1;
     
-    // Generate scores for all majors
     const subjectScores = {};
     let totalAttendance = 0, totalAssignments = 0, totalProjects = 0, totalMcq = 0, totalGpa = 0;
-    const baseStudentSkill = Math.random();
+    const baseStudentSkill = Math.random(); 
     
     majors.forEach(subject => {
       const subjectSkill = Math.max(0, Math.min(1, baseStudentSkill + (Math.random() * 0.4 - 0.2)));
@@ -72,28 +77,14 @@ const generateStudents = (namesList) => {
     });
 
     const mCount = majors.length;
-    const avgAttendance = Math.round(totalAttendance / mCount);
-    const avgAssignments = Math.round(totalAssignments / mCount);
-    const avgProjects = Math.round(totalProjects / mCount);
-    const avgMcqScore = Math.round(totalMcq / mCount);
     let avgGpa = totalGpa / mCount;
 
     let riskLevel = 'low';
     let studentGroup = 1;
-
-    if (avgGpa < 2.2) {
-      riskLevel = 'critical';
-      studentGroup = 5;
-    } else if (avgGpa < 2.6) {
-      riskLevel = 'high';
-      studentGroup = 4;
-    } else if (avgGpa < 3.2) {
-      riskLevel = 'medium';
-      studentGroup = 3;
-    } else if (avgGpa < 3.7) {
-      riskLevel = 'low';
-      studentGroup = 2;
-    }
+    if (avgGpa < 2.2) { riskLevel = 'critical'; studentGroup = 5; }
+    else if (avgGpa < 2.6) { riskLevel = 'high'; studentGroup = 4; }
+    else if (avgGpa < 3.2) { riskLevel = 'medium'; studentGroup = 3; }
+    else if (avgGpa < 3.7) { riskLevel = 'low'; studentGroup = 2; }
 
     const firstNameParts = fullName.split(' ');
     const emailPrefix = firstNameParts[0].toLowerCase() + i;
@@ -109,18 +100,14 @@ const generateStudents = (namesList) => {
       enrollmentYear: [2020, 2021, 2022, 2023][Math.floor(Math.random() * 4)],
       email: `${emailPrefix}@university.edu`,
       courses: courseCategories[Math.floor(Math.random() * courseCategories.length)].courses,
-      attendance: avgAttendance,
-      assignments: avgAssignments,
-      projects: avgProjects,
-      mcqScore: avgMcqScore,
-      recommendationDetails: getRecommendations(parseFloat(avgGpa.toFixed(1)), 'General Sciences')
+      attendance: Math.round(totalAttendance / mCount),
+      assignments: Math.round(totalAssignments / mCount),
+      projects: Math.round(totalProjects / mCount),
+      mcqScore: Math.round(totalMcq / mCount)
     });
   });
-
   return generatedStudents;
 };
-
-export const students = generateStudents(specificNames);
 
 const generatePredictions = (studentsList) => {
   return studentsList.map(student => {
@@ -138,14 +125,6 @@ const generatePredictions = (studentsList) => {
     if (student.attendance > 90) factors.push('Excellent attendance record');
     else if (student.attendance < 75) factors.push('Poor attendance trending negatively');
 
-    if (student.gpa > 3.5) factors.push('Strong academic foundational performance');
-    else if (student.gpa < 2.5) factors.push('Struggling with core concepts');
-
-    if (student.assignments > student.projects + 15) factors.push('Strong in coursework but weaker in practical application');
-    if (student.projects > student.assignments + 15) factors.push('Strong practical skills but missing fundamental coursework');
-
-    if (factors.length === 0) factors.push('Stable performance across metrics');
-
     return {
       id: `PRED${Math.random().toString(36).substr(2, 9)}`,
       studentId: student.id,
@@ -159,30 +138,37 @@ const generatePredictions = (studentsList) => {
   });
 };
 
-export const predictions = generatePredictions(students);
+const seedDatabase = async () => {
+  try {
+    const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/student-performance';
+    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Connected to DB');
 
-const calculateGroups = (studentsList) => {
-  const baseGroups = [
-    { id: 1, name: 'Group 1 - Excellent', color: '#4caf50', description: 'Top performers with excellent academic and practical skills' },
-    { id: 2, name: 'Group 2 - Good', color: '#2196f3', description: 'Good academic performance with strong potential' },
-    { id: 3, name: 'Group 3 - Average', color: '#ff9800', description: 'Average performers who need to strengthen fundamentals' },
-    { id: 4, name: 'Group 4 - Below Average', color: '#f44336', description: 'Below average - need improvement in core courses' },
-    { id: 5, name: 'Group 5 - At Risk', color: '#9c27b0', description: 'At risk - immediate intervention required' }
-  ];
+    await User.deleteMany();
+    await Student.deleteMany();
+    await Prediction.deleteMany();
 
-  return baseGroups.map(bg => {
-    const groupStudents = studentsList.filter(s => s.studentGroup === bg.id);
-    const count = groupStudents.length;
-    const avgGPA = count > 0
-      ? groupStudents.reduce((sum, s) => sum + s.gpa, 0) / count
-      : 0;
+    const salt = await bcrypt.genSalt(10);
+    const adminPassword = await bcrypt.hash('admin123', salt);
+    const studentPassword = await bcrypt.hash('student123', salt);
 
-    return {
-      ...bg,
-      studentCount: count,
-      avgGPA: parseFloat(avgGPA.toFixed(1))
-    };
-  });
+    await User.create([
+      { email: 'admin@example.com', password: adminPassword, role: 'admin' },
+      { email: 'student@csbs.in', password: studentPassword, role: 'student' }
+    ]);
+
+    const students = generateStudents(specificNames);
+    await Student.insertMany(students);
+    
+    const predictions = generatePredictions(students);
+    await Prediction.insertMany(predictions);
+
+    console.log(`Data successfully seeded with ${students.length} specific students!`);
+    process.exit();
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
 };
 
-export const groups = calculateGroups(students);
+seedDatabase();

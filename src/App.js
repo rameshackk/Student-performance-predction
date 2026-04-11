@@ -15,7 +15,7 @@ import './App.css';
 
 const AppContent = () => {
   const { currentUser } = useAuth();
-  
+
   return (
     <div className={currentUser ? "app" : ""}>
       {currentUser && <Navigation />}
@@ -23,7 +23,7 @@ const AppContent = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
+
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/students" element={<PrivateRoute allowedRoles={['admin', 'student']}><StudentList /></PrivateRoute>} />

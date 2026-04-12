@@ -68,6 +68,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const googleLogin = async (credential) => {
+    try {
+      const res = await fetch(`${API_URL}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
+        setCurrentUser({ email: 'Google User' });
+        setUserRole(data.role);
+        return true;
+      }
+      return false;
+    } catch(err) {
+      console.error('Google login failed:', err);
+      return false;
+    }
+  };
+
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -76,6 +99,6 @@ export const AuthProvider = ({ children }) => {
     setUserRole(null);
   };
 
-  const value = { currentUser, userRole, login, signup, logout };
+  const value = { currentUser, userRole, login, signup, logout, googleLogin };
   return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -44,6 +45,27 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+
+      <div style={{ margin: '20px 0', textAlign: 'center' }}>
+        <p style={{ margin: '10px 0', color: '#444' }}>Or continue with</p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              const success = await googleLogin(credentialResponse.credential);
+              if (success) {
+                toast.success('Logged in with Google');
+                navigate('/dashboard');
+              } else {
+                toast.error('Google login failed');
+              }
+            }}
+            onError={() => {
+              toast.error('Google login failed');
+            }}
+          />
+        </div>
+      </div>
+
       <p>Don't have an account? <Link to="/register">Register</Link></p>
     </div>
   );

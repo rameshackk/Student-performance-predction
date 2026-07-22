@@ -7,18 +7,12 @@ export const useAuth = () => useContext(AuthContext);
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState({ email: 'admin@example.com' });
+  const [userRole, setUserRole] = useState('admin');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
-    const email = localStorage.getItem('email');
-    if (token && role && email) {
-      setCurrentUser({ email });
-      setUserRole(role);
-    }
+    // Authentication bypassed. User is always logged in.
     setLoading(false);
   }, []);
 

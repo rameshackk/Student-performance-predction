@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Student-performance-predction/static/css/main.363b81f6.css",
-    "main.js": "/Student-performance-predction/static/js/main.35b79577.js",
+    "main.js": "/Student-performance-predction/static/js/main.050577db.js",
     "static/media/panimalar-bg.jpg": "/Student-performance-predction/static/media/panimalar-bg.c5cb0caae3c8d28769cb.jpg",
     "index.html": "/Student-performance-predction/index.html",
     "main.363b81f6.css.map": "/Student-performance-predction/static/css/main.363b81f6.css.map",
-    "main.35b79577.js.map": "/Student-performance-predction/static/js/main.35b79577.js.map"
+    "main.050577db.js.map": "/Student-performance-predction/static/js/main.050577db.js.map"
   },
   "entrypoints": [
     "static/css/main.363b81f6.css",
-    "static/js/main.35b79577.js"
+    "static/js/main.050577db.js"
   ]
 }

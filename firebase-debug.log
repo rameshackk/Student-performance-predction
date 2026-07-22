@@ -1,0 +1,163 @@
+[debug] [2026-03-01T11:21:08.191Z] ----------------------------------------------------------------------
+[debug] [2026-03-01T11:21:08.195Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\imkar\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-03-01T11:21:08.196Z] CLI Version:   15.8.0
+[debug] [2026-03-01T11:21:08.196Z] Platform:      win32
+[debug] [2026-03-01T11:21:08.196Z] Node Version:  v24.13.1
+[debug] [2026-03-01T11:21:08.196Z] Time:          Sun Mar 01 2026 16:51:08 GMT+0530 (India Standard Time)
+[debug] [2026-03-01T11:21:08.196Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\imkar\Downloads\student-performance-prediction
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-03-01T11:21:59.511Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-01T11:21:59.511Z] > authorizing via signed-in user (rameshpec28@gmail.com)
+[debug] [2026-03-01T11:21:59.513Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:21:59.513Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:21:59.514Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2026-03-01T11:22:00.435Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-03-01T11:22:00.436Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] 
+=== Dataconnect Setup
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[debug] [2026-03-01T11:22:22.572Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:22.572Z] Checked if tokens are valid: true, expires at: 1772367637917
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-03-01T11:22:22.573Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:22.573Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:22.573Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-03-01T11:22:22.573Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com  x-goog-user-project=music-8a240
+[debug] [2026-03-01T11:22:22.576Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com [none]
+[debug] [2026-03-01T11:22:22.576Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com  x-goog-user-project=music-8a240
+[debug] [2026-03-01T11:22:24.256Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-03-01T11:22:24.256Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API firebasedataconnect.googleapis.com. Enabling now... 
+[debug] [2026-03-01T11:22:24.258Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:24.258Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:24.258Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com:enable [none]
+[debug] [2026-03-01T11:22:24.258Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com:enable  x-goog-user-project=music-8a240
+[debug] [2026-03-01T11:22:24.261Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com 200
+[debug] [2026-03-01T11:22:24.261Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com [omitted]
+[warn] !  dataconnect: missing required API sqladmin.googleapis.com. Enabling now... 
+[debug] [2026-03-01T11:22:24.261Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:24.261Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:24.261Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com:enable [none]
+[debug] [2026-03-01T11:22:24.262Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com:enable  x-goog-user-project=music-8a240
+[debug] [2026-03-01T11:22:25.895Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com:enable 200
+[debug] [2026-03-01T11:22:25.895Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firebasedataconnect.googleapis.com:enable [omitted]
+[debug] [2026-03-01T11:22:25.922Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com:enable 200
+[debug] [2026-03-01T11:22:25.923Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1/projects/music-8a240/services/sqladmin.googleapis.com:enable [omitted]
+[debug] [2026-03-01T11:22:35.946Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:35.946Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:35.947Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services [none]
+[debug] [2026-03-01T11:22:37.865Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services 200
+[debug] [2026-03-01T11:22:37.865Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services {}
+[info] i  Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
+[debug] [2026-03-01T11:22:38.128Z] ----------------------------------------------------------------------
+[debug] [2026-03-01T11:22:38.132Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\imkar\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2026-03-01T11:22:38.133Z] CLI Version:   15.8.0
+[debug] [2026-03-01T11:22:38.133Z] Platform:      win32
+[debug] [2026-03-01T11:22:38.133Z] Node Version:  v24.13.1
+[debug] [2026-03-01T11:22:38.133Z] Time:          Sun Mar 01 2026 16:52:38 GMT+0530 (India Standard Time)
+[debug] [2026-03-01T11:22:38.133Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\imkar\Downloads\student-performance-prediction
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-03-01T11:22:47.118Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-01T11:22:47.119Z] > authorizing via signed-in user (rameshpec28@gmail.com)
+[debug] [2026-03-01T11:22:47.120Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:47.120Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:47.122Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/music-8a240 [none]
+[debug] [2026-03-01T11:22:47.703Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/music-8a240 200
+[debug] [2026-03-01T11:22:47.704Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/music-8a240 {"projectId":"music-8a240","projectNumber":"603630373542","displayName":"music","name":"projects/music-8a240","resources":{"hostingSite":"music-8a240"},"state":"ACTIVE","etag":"1_640b1df6-2870-4e0c-8e27-6ec4fe601773"}
+[info] i  Using project music-8a240 (music) . 
+[info] 
+=== Dataconnect Setup
+[info] i  dataconnect: ensuring required API firebasedataconnect.googleapis.com is enabled... 
+[info] i  dataconnect: ensuring required API sqladmin.googleapis.com is enabled... 
+[debug] [2026-03-01T11:22:47.724Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:47.724Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:47.724Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services [none]
+[debug] [2026-03-01T11:22:49.545Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services 200
+[debug] [2026-03-01T11:22:49.545Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/-/services {}
+[info] i  Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 
+[debug] [2026-03-01T11:22:52.319Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:52.320Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:52.320Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/music-8a240/billingInfo [none]
+[debug] [2026-03-01T11:22:53.648Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/music-8a240/billingInfo 200
+[debug] [2026-03-01T11:22:53.649Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/music-8a240/billingInfo {"name":"projects/music-8a240/billingInfo","projectId":"music-8a240","billingAccountName":"","billingEnabled":false}
+[debug] [2026-03-01T11:22:53.649Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:53.649Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:22:53.650Z] >>> [apiv2][query] GET https://monitoring.googleapis.com/v3/projects/music-8a240/timeSeries/ filter=metric.type%3D%22serviceruntime.googleapis.com%2Fquota%2Fallocation%2Fusage%22+AND+metric.label.quota_metric+%3D+%22sqladmin.googleapis.com%2Ffdc_lifetime_free_trial_per_project%22&interval.endTime=2026-03-01T11%3A22%3A53.649Z&interval.startTime=2026-02-22T11%3A22%3A53.649Z
+[debug] [2026-03-01T11:22:55.337Z] <<< [apiv2][status] GET https://monitoring.googleapis.com/v3/projects/music-8a240/timeSeries/ 200
+[debug] [2026-03-01T11:22:55.337Z] <<< [apiv2][body] GET https://monitoring.googleapis.com/v3/projects/music-8a240/timeSeries/ {"unit":"1"}
+[warn] !  dataconnect: Cannot detect an existing app in the current directory. 
+[info] i  dataconnect: > npm create vite@latest web-app -- --template react --no-interactive 
+[debug] [2026-03-01T11:23:08.262Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:23:08.263Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:23:08.263Z] >>> [apiv2][query] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/us-east4/services/student-performance-prediction/schemas pageSize=100&pageToken=&fields=schemas.name%2Cschemas.datasources%2Cschemas.source
+[debug] [2026-03-01T11:23:09.920Z] <<< [apiv2][status] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/us-east4/services/student-performance-prediction/schemas 404
+[debug] [2026-03-01T11:23:09.920Z] <<< [apiv2][body] GET https://firebasedataconnect.googleapis.com/v1/projects/music-8a240/locations/us-east4/services/student-performance-prediction/schemas {"error":{"code":404,"message":"Resource 'services/student-performance-prediction' was not found","status":"NOT_FOUND","details":[{"@type":"type.googleapis.com/google.rpc.ResourceInfo","resourceName":"services/student-performance-prediction"}]}}
+[info] +  Wrote dataconnect\dataconnect.yaml 
+[info] +  Wrote dataconnect\seed_data.gql 
+[info] +  Wrote dataconnect\schema\schema.gql 
+[info] +  Wrote dataconnect\example\connector.yaml 
+[info] +  Wrote dataconnect\example\queries.gql 
+[info] +  Wrote dataconnect\example\mutations.gql 
+[info] +  Wrote dataconnect\example\connector.yaml 
+[info] i  dataconnect: Installing the generated SDKs ... 
+[info] i  dataconnect: downloading dataconnect-emulator-3.2.0.exe... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.2.0.exe..."}}
+[debug] [2026-03-01T11:23:10.016Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.2.0 
+[debug] [2026-03-01T11:23:10.434Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.2.0 200
+[debug] [2026-03-01T11:23:10.435Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-windows-amd64-v3.2.0 [stream]
+[debug] [2026-03-01T11:23:19.977Z] defaultcredentials: writing to file C:\Users\imkar\AppData\Roaming\firebase\rameshpec28_gmail_com_application_default_credentials.json
+[info] +  dataconnect: Installed generated SDKs for web-app (web) 
+[info] i  Visit https://firebase.google.com/docs/data-connect/web-sdk#react for more information on how to set up React Generated SDKs for Firebase Data Connect 
+[info] 
+=== Firestore Setup
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-03-01T11:24:18.902Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:24:18.902Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:24:18.903Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firestore.googleapis.com [none]
+[debug] [2026-03-01T11:24:18.903Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firestore.googleapis.com  x-goog-user-project=music-8a240
+[debug] [2026-03-01T11:24:20.580Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firestore.googleapis.com 200
+[debug] [2026-03-01T11:24:20.580Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/music-8a240/services/firestore.googleapis.com [omitted]
+[info] +  firestore: required API firestore.googleapis.com is enabled 
+[debug] [2026-03-01T11:24:20.587Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:24:20.587Z] Checked if tokens are valid: true, expires at: 1772367637917
+[debug] [2026-03-01T11:24:20.588Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/music-8a240/databases [none]
+[debug] [2026-03-01T11:24:21.505Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/music-8a240/databases 200
+[debug] [2026-03-01T11:24:21.506Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/music-8a240/databases {"databases":[{"name":"projects/music-8a240/databases/(default)","uid":"1863fe46-c678-47f7-b9c3-57e1479a6678","createTime":"2025-04-01T04:03:58.064269Z","updateTime":"2025-04-01T04:03:58.064269Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-03-01T10:24:20.642887Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IIfkl7HL/pIDMP7Xp/un5pID"}]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
